@@ -1,0 +1,8 @@
+[
+  {
+    "id": 0,
+    "name": "Gosho",
+    "password": "12345",
+    "role": "ADMINISTRATOR"
+  }
+]
