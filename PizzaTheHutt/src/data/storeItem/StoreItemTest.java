@@ -124,4 +124,17 @@ class StoreItemTest {
 		assertEquals(active, item.isActive());
 	}
 
+	@Test
+	void testToString() {
+		int id = 333;
+		String name = "Pizza";
+		double price = 9.99;
+		String description = "This is a very tasty pizza!";
+		boolean active = false;
+		
+		StoreItem item = new StoreItem(id, name, price, description, active);
+		
+		String expected = "ID: " + id + "; Name: " + name + "; Price: " + price + "; Description: " + description + "; Active: " + active;
+		assertEquals(expected, item.toString());
+	}
 }

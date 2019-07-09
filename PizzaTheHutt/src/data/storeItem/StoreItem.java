@@ -85,5 +85,14 @@ public class StoreItem {
 		this.active = active;
 	}
 	
-	
+	@Override
+	public String toString () {
+		StringBuilder builder = new StringBuilder();
+		builder.append("ID: " + this.id + "; ");
+		builder.append("Name: " + this.name + "; ");
+		builder.append("Price: " + this.price + "; ");
+		builder.append("Description: " + this.description + "; ");
+		builder.append("Active: " + this.active);
+		return builder.toString();
+	}
 }
