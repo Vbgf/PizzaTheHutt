@@ -9,16 +9,16 @@ import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 import core.IPersistantData;
 import data.user.User;
 import data.user.UserRoles;
 
-public class StorageJson implements IPersistantData{
+public class StorageUsersJson implements IPersistantData{
 
 	private static final File DB_FILE = new File("data\\users.json");
 	private static final Charset ENCODING = StandardCharsets.UTF_8;
@@ -27,13 +27,13 @@ public class StorageJson implements IPersistantData{
 	private ArrayList<User> users;
 	private File dbFile;
 	
-	public StorageJson() {
+	public StorageUsersJson() {
 		gson = new GsonBuilder().setPrettyPrinting().create();
 		users = new ArrayList<User>();
 		dbFile = DB_FILE;
 	}
 	
-	public StorageJson(File dbFile){
+	public StorageUsersJson(File dbFile){
 		gson = new GsonBuilder().setPrettyPrinting().create();
 		users = new ArrayList<User>();
 		
@@ -49,10 +49,7 @@ public class StorageJson implements IPersistantData{
 		FileInputStream inputStream = new FileInputStream(dbFile);
 		InputStreamReader streamReader = new InputStreamReader(inputStream, ENCODING);
 
-		User[] userArray = gson.fromJson(streamReader, User[].class);
-		if(userArray != null) {
-			users = new ArrayList<User>(Arrays.asList(userArray));
-		}
+		users = gson.fromJson(streamReader, new TypeToken<ArrayList<User>>(){}.getType());
 		
 		inputStream.close();
 		streamReader.close();

@@ -10,19 +10,19 @@ import org.junit.jupiter.api.Test;
 
 import data.user.UserRoles;
 
-class StorageJsonTest {
+class StorageUsersJsonTest {
 	
 	private static final File testDbFile = new File("data\\testusers.json");
 
 	@Test
 	void testConstructor() throws IOException{
-		StorageJson data = new StorageJson();
+		StorageUsersJson data = new StorageUsersJson();
 		data.load();
 	}
 	
 	@Test
 	void testLoad() throws IOException{
-		StorageJson data = new StorageJson(testDbFile);
+		StorageUsersJson data = new StorageUsersJson(testDbFile);
 		if(testDbFile.exists()) {
 			testDbFile.delete();
 		}
@@ -33,7 +33,7 @@ class StorageJsonTest {
 
 	@Test
 	void testSave() throws IOException {
-		StorageJson data = new StorageJson(testDbFile);
+		StorageUsersJson data = new StorageUsersJson(testDbFile);
 		if(testDbFile.exists()) {
 			testDbFile.delete();
 		}
@@ -49,7 +49,7 @@ class StorageJsonTest {
 		String validUsername = "validUsername";
 		String validPassword = "validPassword";
 		
-		StorageJson data = new StorageJson(testDbFile);
+		StorageUsersJson data = new StorageUsersJson(testDbFile);
 		assertThrows(NullPointerException.class, () -> data.authUser(invalidUsername, invalidPassword));
 		assertThrows(IllegalArgumentException.class, () -> data.authUser(validUsername, validPassword));
 
@@ -66,7 +66,7 @@ class StorageJsonTest {
 		String validUsername = "TestThisUsername";
 		String validPassword = "TestThisPassword";
 		
-		StorageJson data = new StorageJson(testDbFile);
+		StorageUsersJson data = new StorageUsersJson(testDbFile);
 		assertThrows(NullPointerException.class, () -> data.addUser(invalidUsername, invalidPassword));
 
 		assertThrows(IllegalArgumentException.class, () -> data.authUser(validUsername, validPassword));
@@ -86,7 +86,7 @@ class StorageJsonTest {
 		String validUsername = "TestThisUsername";
 		String validPassword = "TestThisPassword";
 		
-		StorageJson data = new StorageJson(testDbFile);
+		StorageUsersJson data = new StorageUsersJson(testDbFile);
 		assertThrows(NullPointerException.class, () -> data.removeUser(invalidUsername, invalidPassword));
 		
 		assertThrows(IllegalArgumentException.class, () -> data.authUser(validUsername, validPassword));

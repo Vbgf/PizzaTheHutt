@@ -2,14 +2,12 @@ package core;
 
 import java.io.IOException;
 
-import storage.json.StorageJson;
+import storage.json.StorageUsersJson;
 
 public class App {
 
-	public static void main(String[] args) {
-		Invoker invoker = new Invoker();
-		
-		IPersistantData storage = new StorageJson();
+	public static void main(String[] args) {		
+		IPersistantData storage = new StorageUsersJson();
 		try {
 			storage.load();
 		} catch (IOException e) {

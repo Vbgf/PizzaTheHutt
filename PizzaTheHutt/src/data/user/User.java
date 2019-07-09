@@ -9,17 +9,11 @@ public class User {
 	private UserRoles role;
 	
 	public User() {
-		setId(-1);
-		this.username = "";
-		this.password = "";
-		this.role = UserRoles.UNASSIGNED;
+		this(-1, "", "", UserRoles.UNASSIGNED);
 	}
 	
 	public User(String name, String password) {
-		setId(lastID + 1);
-		this.username = name;
-		this.password = password;
-		this.role = UserRoles.USER;
+		this(lastID + 1, name, password, UserRoles.USER);
 	}
 	
 	public User(int id, String name, String password, UserRoles role) {
