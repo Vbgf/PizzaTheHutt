@@ -15,34 +15,18 @@ class OrderTest {
 	void testOrder() {
 		Order order = new Order();
 		assertEquals(-1, order.getId());
-		assertEquals(null, order.getItems());
+		assertEquals(0, order.getItems().size());
 		assertEquals(OrderStatus.UNASSIGNED, order.getStatus());
-		assertEquals(0, order.getTimestamp());
-	}
-
-	@Test
-	void testOrderArrayListOfStoreItemOrderStatusDate() {
-		ArrayList<StoreItem> items = new ArrayList<>();
-		items.add(new StoreItem());
-		items.add(new StoreItem());
-		OrderStatus status = OrderStatus.NEW;
-		long timestamp = 3345;
-		int lastID = Order.getLastId();
-		
-		Order order = new Order(items, status, timestamp);
-		assertEquals(lastID + 1, order.getId());
-		assertEquals(items, order.getItems());
-		assertEquals(status, order.getStatus());
-		assertEquals(timestamp, order.getTimestamp());
+		assertEquals(-1, order.getTimestamp());
 	}
 
 	@Test
 	void testOrderIntArrayListOfStoreItemOrderStatusDate() {
-		int id = 445;
+		long id = 445;
 		ArrayList<StoreItem> items = new ArrayList<>();
 		items.add(new StoreItem());
 		items.add(new StoreItem());
-		OrderStatus status = OrderStatus.NEW;
+		OrderStatus status = OrderStatus.CANCELED;
 		long timestamp = 3345;
 		
 		Order order = new Order(id, items, status, timestamp);
@@ -52,13 +36,16 @@ class OrderTest {
 		assertEquals(timestamp, order.getTimestamp());
 	}
 
+	
 	@Test
-	void testSetLastId() {
-		int lastID = 33;
-		Order.setLastId(lastID);
-		assertEquals(lastID, Order.getLastId());
+	void testSetId() {
+		long newId = 2234;
+		Order order = new Order();
+		order.setId(newId);
+		
+		assertEquals(newId, order.getId());
 	}
-
+	
 	@Test
 	void testSetItems() {
 		ArrayList<StoreItem> items = new ArrayList<>();
@@ -93,11 +80,11 @@ class OrderTest {
 
 	@Test
 	void testToString() {
-		int id = 445;
+		long id = 445;
 		ArrayList<StoreItem> items = new ArrayList<>();
 		items.add(new StoreItem());
 		items.add(new StoreItem());
-		OrderStatus status = OrderStatus.NEW;
+		OrderStatus status = OrderStatus.FINISHED;
 		long timestamp = 3345;
 		
 		Order order = new Order(id, items, status, timestamp);

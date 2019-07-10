@@ -1,56 +1,55 @@
 package data.storeItem;
 
 public class StoreItem {
-	private static int lastID;
 	
-	private int id;
+	private static final long DEFAULT_ID = -1;
+	private static final double  DEFAULT_PRICE = 0;
+	private static final boolean  DEFAULT_STATE = false;
+	
+	private long id;
 	private String name;
 	private double price;
 	private String description;
 	private boolean active;
 	
 	public StoreItem() {
-		this(-1, "", 0, "", false);
+		this(DEFAULT_ID, null, DEFAULT_PRICE, null, DEFAULT_STATE);
 	}
 	
-	public StoreItem(String name, double price) {
-		this(lastID + 1, name, price, "", true);
+	public StoreItem(long id, String name, double price) {
+		this(id, name, price, null, true);
 	}
 	
-	public StoreItem(String name, double price, String description) {
-		this(lastID + 1, name, price, description, true);
+	public StoreItem(long id, String name, double price, String description) {
+		this(id, name, price, description, true);
 	}
 	
-	public StoreItem(String name, double price, String description, boolean active) {
-		this(lastID + 1, name, price, description, active);
-	}
-	
-	public StoreItem(int id, String name, double price, String description, boolean active) {
-		setId(id);
-		this.name = name;
+	public StoreItem(long id, String name, double price, String description, boolean active) {
+		this.id = id;
+		
+		if(name != null) {
+			this.name = name;
+		}else {
+			this.name = new String();
+		}
+		
 		this.price = price;
-		this.description = description;
+		
+		if(description != null) {
+			this.description = description;
+		}else {
+			this.description = new String();
+		}
+		
 		this.active = active;
 	}
-		
-	public static int getLastId() {
-		return lastID;
-	}
-
-	public static void setLastId(int lastID) {
-		StoreItem.lastID = lastID;
-	}
 	
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 	
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
-		
-		if(lastID < id) {
-			lastID = id;
-		}
 	}
 	
 	public String getName() {

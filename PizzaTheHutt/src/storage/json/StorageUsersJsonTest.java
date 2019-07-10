@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.io.File;
 import java.io.IOException;
 
-import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import data.user.UserRoles;
@@ -98,11 +98,9 @@ class StorageUsersJsonTest {
 		assertThrows(IllegalArgumentException.class, () -> data.authUser(validUsername, validPassword));
 	}
 	
-	@AfterAll
-	static void testDBCleanup(){
-		if(testDbFile.exists()) {
-			testDbFile.delete();
-		}
+	@AfterEach
+	void testDbCleanup(){
+		testDbFile.delete();
 	}
 
 }

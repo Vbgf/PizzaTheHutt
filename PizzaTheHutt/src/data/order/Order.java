@@ -2,63 +2,48 @@ package data.order;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import data.storeItem.StoreItem;
 
 public class Order {
-	private static int lastID;
+	private static final long DEFAULT_ID = -1;
+	private static final OrderStatus DEFAULT_STATUS = OrderStatus.UNASSIGNED;
+	private static final long DEFAULT_TIMESTAMP = -1;
 	
-	private int id;
-	private ArrayList<StoreItem> items;
+	private long id;
+	private List<StoreItem> items;
 	private OrderStatus status;
 	private long timestamp;
 	
 	public Order() {
-		setId(-1);
-		this.items = null;
-		this.status = OrderStatus.UNASSIGNED;
-		this.timestamp = 0;
+		this(DEFAULT_ID, null, DEFAULT_STATUS, DEFAULT_TIMESTAMP);
 	}
 	
-	public Order(ArrayList<StoreItem> items, OrderStatus status, long timestamp) {
-		setId(lastID + 1);
-		this.items = items;
+	public Order(long id, List<StoreItem> items, OrderStatus status, long timestamp) {
+		this.id = id;
+		if(items != null) {
+			this.items = new ArrayList<>(items);
+		}else {
+			this.items = new ArrayList<>();
+		}
 		this.status = status;
 		this.timestamp = timestamp;
 	}
 	
-	public Order(int id, ArrayList<StoreItem> items, OrderStatus status, long timestamp) {
-		setId(id);
-		this.items = items;
-		this.status = status;
-		this.timestamp = timestamp;
-	}
-	
-	public static int getLastId() {
-		return lastID;
-	}
-
-	public static void setLastId(int lastID) {
-		Order.lastID = lastID;
-	}
-	
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 	
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
-		
-		if(lastID < id) {
-			lastID = id;
-		}
 	}
 	
-	public ArrayList<StoreItem> getItems() {
+	public List<StoreItem> getItems() {
 		return items;
 	}
 	
-	public void setItems(ArrayList<StoreItem> items) {
+	public void setItems(List<StoreItem> items) {
 		this.items = items;
 	}
 	

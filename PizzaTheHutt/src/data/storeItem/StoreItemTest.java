@@ -10,22 +10,21 @@ class StoreItemTest {
 	void testStoreItem() {
 		StoreItem item = new StoreItem();
 		assertEquals(-1, item.getId());
-		assertEquals("", item.getName());
+		assertEquals(0, item.getName().length());
 		assertEquals(0, item.getPrice());
-		assertEquals("", item.getDescription());
+		assertEquals(0, item.getDescription().length());
 		assertEquals(false, item.isActive());
 	}
 
 	@Test
-	void testStoreItemStringDouble() {
+	void testStoreItemIntStringDouble() {
+		long id = 234;
 		String name = "Pizza";
 		double price = 9.99;
 		
-		StoreItem item = new StoreItem(name, price);
-		int lastItemID = StoreItem.getLastId();
+		StoreItem item = new StoreItem(id, name, price);
 		
-		assertEquals(lastItemID, item.getId());
-		assertNotEquals(-1, item.getId());
+		assertEquals(id, item.getId());
 		assertEquals(name, item.getName());
 		assertEquals(price, item.getPrice());
 		assertEquals("", item.getDescription());
@@ -33,16 +32,15 @@ class StoreItemTest {
 	}
 	
 	@Test
-	void testStoreItemStringDoubleString() {
+	void testStoreItemIntStringDoubleString() {
+		long id = 234;
 		String name = "Pizza";
 		double price = 9.99;
 		String description = "This is a very tasty pizza!";
 		
-		StoreItem item = new StoreItem(name, price, description);
-		int lastItemID = StoreItem.getLastId();
+		StoreItem item = new StoreItem(id, name, price, description);
 		
-		assertEquals(lastItemID, item.getId());
-		assertNotEquals(-1, item.getId());
+		assertEquals(id, item.getId());
 		assertEquals(name, item.getName());
 		assertEquals(price, item.getPrice());
 		assertEquals(description, item.getDescription());
@@ -50,26 +48,8 @@ class StoreItemTest {
 	}
 
 	@Test
-	void testStoreItemStringDoubleStringBoolean() {
-		String name = "Pizza";
-		double price = 9.99;
-		String description = "This is a very tasty pizza!";
-		boolean active = false;
-		
-		StoreItem item = new StoreItem(name, price, description, active);
-		int lastItemID = StoreItem.getLastId();
-		
-		assertEquals(lastItemID, item.getId());
-		assertNotEquals(-1, item.getId());
-		assertEquals(name, item.getName());
-		assertEquals(price, item.getPrice());
-		assertEquals(description, item.getDescription());
-		assertEquals(active, item.isActive());
-	}
-
-	@Test
 	void testStoreItemIntStringDoubleStringBoolean() {
-		int id = 333;
+		long id = 333;
 		String name = "Pizza";
 		double price = 9.99;
 		String description = "This is a very tasty pizza!";
@@ -84,14 +64,15 @@ class StoreItemTest {
 		assertEquals(description, item.getDescription());
 		assertEquals(active, item.isActive());
 	}
-
+	
 	@Test
-	void testSetLastId() {
-		int lastID = 44;
-		StoreItem.setLastId(lastID);
-		assertEquals(lastID, StoreItem.getLastId());
+	void testSetId() {
+		long id = 344;
+		StoreItem item = new StoreItem();
+		item.setId(id);
+		assertEquals(id, item.getId());
 	}
-
+	
 	@Test
 	void testSetName() {
 		String name = "Pizza";
@@ -126,7 +107,7 @@ class StoreItemTest {
 
 	@Test
 	void testToString() {
-		int id = 333;
+		long id = 333;
 		String name = "Pizza";
 		double price = 9.99;
 		String description = "This is a very tasty pizza!";

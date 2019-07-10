@@ -14,11 +14,11 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
-import core.IPersistantData;
 import data.user.User;
 import data.user.UserRoles;
+import storage.managers.Manager;
 
-public class StorageUsersJson implements IPersistantData{
+public class StorageUsersJson implements Manager{
 
 	private static final File DB_FILE = new File("data\\users.json");
 	private static final Charset ENCODING = StandardCharsets.UTF_8;

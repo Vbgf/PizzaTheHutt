@@ -10,28 +10,14 @@ class UserTest {
 	void testUser() {
 		User user = new User();
 		assertEquals(-1, user.getId());
-		assertEquals("", user.getUsername());
-		assertEquals("", user.getPassword());
+		assertEquals(0, user.getUsername().length());
+		assertEquals(0, user.getPassword().length());
 		assertEquals(UserRoles.UNASSIGNED, user.getRole());
 	}
 
 	@Test
-	void testUserStringString() {
-		int lastId = 12;
-		User.setLastId(lastId);
-		String username = "Sasho";
-		String password = "123456";
-		
-		User user = new User(username, password);
-		assertEquals(lastId + 1, user.getId());
-		assertEquals(username, user.getUsername());
-		assertEquals(password, user.getPassword());
-		assertEquals(UserRoles.USER, user.getRole());
-	}
-
-	@Test
 	void testUserIntStringStringUserRoles() {
-		int id = 123;
+		long id = 123;
 		String username = "Sasho";
 		String password = "123456";
 		UserRoles role = UserRoles.USER;
@@ -44,15 +30,8 @@ class UserTest {
 	}
 
 	@Test
-	void testGetLastId() {
-		int lastID = 44;
-		User.setLastId(lastID);
-		assertEquals(lastID, User.getLastId());
-	}
-
-	@Test
 	void testSetId() {
-		int id = 55;
+		long id = 55;
 		User user = new User();
 		user.setId(id);
 		assertEquals(id, user.getId());
@@ -84,7 +63,7 @@ class UserTest {
 	
 	@Test
 	void testToString() {
-		int id = 123;
+		long id = 123;
 		String username = "Sasho";
 		String password = "123456";
 		UserRoles role = UserRoles.USER;

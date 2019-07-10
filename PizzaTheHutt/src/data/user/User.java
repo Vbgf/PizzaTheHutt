@@ -1,46 +1,44 @@
 package data.user;
 
 public class User {
-	private static int lastID;
 	
-	private int id;
+	private static final long DEFAULT_ID = -1;
+	private static final UserRoles DEFAULT_ROLE = UserRoles.UNASSIGNED;
+	
+	
+	private long id;
 	private String username;
 	private String password;
 	private UserRoles role;
 	
 	public User() {
-		this(-1, "", "", UserRoles.UNASSIGNED);
+		this(DEFAULT_ID, null, null, DEFAULT_ROLE);
 	}
 	
-	public User(String name, String password) {
-		this(lastID + 1, name, password, UserRoles.USER);
-	}
-	
-	public User(int id, String name, String password, UserRoles role) {
+	public User(long id, String username, String password, UserRoles role) {
 		setId(id);
-		this.username = name;
-		this.password = password;
+		
+		if(username != null) {
+			this.username = username;
+		}else {
+			this.username = new String();
+		}
+		
+		if(password != null) {
+			this.password = password;
+		}else {
+			this.password = new String();
+		}
+		
 		this.role = role;
 	}
 
-	public static int getLastId() {
-		return lastID;
-	}
-
-	public static void setLastId(int lastID) {
-		User.lastID = lastID;
-	}
-	
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 	
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
-		
-		if(lastID < id) {
-			lastID = id;
-		}
 	}
 	
 	public String getUsername() {
