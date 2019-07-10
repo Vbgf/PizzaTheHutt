@@ -1,18 +1,20 @@
-package data.user;
+package storage.managers;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import data.user.User;
+import data.user.UserRoles;
 import storage.json.Storage;
-import storage.managers.Manager;
-import storage.json.JsonParser;
+import storage.json.JacksonJsonParser;
 
 public class UserManager implements Manager<User>{
 	
 	private static final File USERS_DB_FILE = new File("data\\users.json");
 
+	private long nextAvailableId;
 	private Storage<User> usersDb;
 	private ArrayList<User> users;
 	
@@ -21,8 +23,9 @@ public class UserManager implements Manager<User>{
 	}
 	
 	public UserManager(File dbFile) throws IOException {
-		usersDb = new JsonParser<User>(dbFile);
-		users = new ArrayList<User>();
+		this.nextAvailableId = 0;
+		this.usersDb = new JacksonJsonParser<User>(User.class, dbFile);
+		this.users = new ArrayList<User>();
 		load();
 	}
 
@@ -45,6 +48,9 @@ public class UserManager implements Manager<User>{
 		}
 		
 		users.add(newObject);
+		if(newObject.getId() >= nextAvailableId) {
+			nextAvailableId = newObject.getId() + 1;
+		}
 	}
 
 	@Override
@@ -112,15 +118,24 @@ public class UserManager implements Manager<User>{
 	@Override
 	public void load() throws IOException {
 		List<User> returnedData = usersDb.load();
-		if(returnedData != null) {
-			users = new ArrayList<User>(returnedData);
-		}else {
-			users = new ArrayList<User>();
+		users = new ArrayList<User>(returnedData);
+		nextAvailableId = 0;
+		for(User user : users) {
+			if(user.getId() >= nextAvailableId) {
+				nextAvailableId = user.getId() + 1;
+			}
 		}
 	}
 
 	@Override
 	public void save() throws IOException {
 		usersDb.save(users);
+	}
+
+	@Override
+	public long reserveId() {
+		long reservedId = nextAvailableId;
+		nextAvailableId ++;
+		return reservedId;
 	}
 }

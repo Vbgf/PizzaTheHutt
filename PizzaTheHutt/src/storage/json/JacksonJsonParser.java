@@ -1,44 +1,37 @@
 package storage.json;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
-import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 
 public class JacksonJsonParser<T> implements Storage<T>{
 	
-	private static final Charset ENCODING = StandardCharsets.UTF_8;
-	
 	private File dbFile;
-	private Charset dbEncoding;
+	private ObjectMapper mapper;
+	private JavaType type;
 	
-	public JacksonJsonParser(File dbFile) throws IOException {
-		this(dbFile, ENCODING);
-	}
-	
-	public JacksonJsonParser(File dbFile, Charset encoding) throws IOException {
+	public JacksonJsonParser(Class<T> storedClass, File dbFile) throws IOException {
 		this.dbFile = dbFile;
-		this.dbEncoding = encoding;
+		this.mapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
+		type =  mapper.getTypeFactory().constructCollectionType(List.class, storedClass);
 		dbFile.createNewFile();
 	}
 
 	@Override
 	public List<T> load() throws IOException {
-		
-		ObjectMapper mapper = new ObjectMapper();
 		List<T> myObjects;
+		
 		try {
-			myObjects = Arrays.asList(mapper.readValue(dbFile, new TypeReference<List<T>>() {}));
+			myObjects = mapper.readValue(dbFile, type);
 		}catch (MismatchedInputException e) {
-			myObjects = null;
+			//this is reached when the file is empty
+			myObjects = Collections.emptyList();
 		}
 		
 		return myObjects;
@@ -46,7 +39,17 @@ public class JacksonJsonParser<T> implements Storage<T>{
 
 	@Override
 	public void save(List<T> data) throws IOException {
-		ObjectMapper mapper = new ObjectMapper();
+		if(data == null) {
+			throw new IllegalArgumentException();
+		}
+		
+		if(data.isEmpty()) {
+			throw new IllegalArgumentException();
+		}
+		
+		if (!dbFile.exists()) {
+			dbFile.createNewFile();
+		}
 		mapper.writeValue(dbFile, data);
 	}
 

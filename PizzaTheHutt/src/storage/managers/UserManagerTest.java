@@ -1,22 +1,21 @@
-package data.user;
+package storage.managers;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import data.user.User;
+import data.user.UserRoles;
+
 class UserManagerTest {
 
 	private static final File testDbFile = new File("data\\testusers.json");
-	
-	@BeforeEach
-	void testDbSetup() throws IOException {
-		testDbFile.createNewFile();
-	}
 	
 	@Test
 	void testUserManager() throws IOException {
@@ -73,7 +72,17 @@ class UserManagerTest {
 	@Test
 	void testGetAll() throws IOException {
 		UserManager manager = new UserManager(testDbFile);
-		manager.getAll();
+		assertTrue(manager.getAll().isEmpty());
+		
+		User user = new User(manager.reserveId(), "Username", "Password", UserRoles.ADMINISTRATOR);
+		manager.add(user);
+		User user2 = new User(manager.reserveId(), "Username", "Password", UserRoles.ADMINISTRATOR);
+		manager.add(user2);
+		assertTrue(!manager.getAll().isEmpty());
+		
+		ArrayList<User> users = new ArrayList<User>(manager.getAll());
+		assertEquals(user, users.get(0));
+		assertEquals(user2, users.get(1));		
 	}
 
 	@Test
@@ -121,7 +130,7 @@ class UserManagerTest {
 		manager.save();
 		
 		manager.load();
-		assertEquals(user1, manager.get(user1.getId()));
+		assertEquals(user1.toString(), manager.get(user1.getId()).toString());
 	}
 
 	@Test
@@ -132,9 +141,30 @@ class UserManagerTest {
 		manager.add(user1);
 		manager.save();
 		manager.load();
-		assertEquals(user1, manager.get(user1.getId()));
+		assertEquals(user1.toString(), manager.get(user1.getId()).toString());
 	}
 	
+	@Test
+	void testReserveId() throws IOException {
+		UserManager manager = new UserManager(testDbFile);
+		assertEquals(0, manager.reserveId());
+		assertEquals(1, manager.reserveId());
+
+		User user1 = new User(23, "asd", "asd", UserRoles.MANAGER);
+		manager.add(user1);
+		assertEquals(user1.getId() + 1, manager.reserveId());
+		
+		manager.load();
+		assertEquals(0, manager.reserveId());
+		
+		manager.add(user1);
+		User user = new User(manager.reserveId(), "Username", "Password", UserRoles.ADMINISTRATOR);
+		manager.add(user);
+		
+		assertEquals(user.getId(), user1.getId() + 1);
+	}
+	
+	@BeforeEach
 	@AfterEach
 	void testDbCleanup(){
 		testDbFile.delete();

@@ -14,4 +14,6 @@ public interface Manager<T> {
 	
 	void load() throws IOException;
 	void save() throws IOException;
+	
+	long reserveId();
 }

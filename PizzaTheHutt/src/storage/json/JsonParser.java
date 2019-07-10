@@ -8,10 +8,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -45,16 +42,7 @@ public class JsonParser<T> implements Storage<T> {
 		FileInputStream inputStream = new FileInputStream(dbFile);
 		InputStreamReader streamReader = new InputStreamReader(inputStream, dbEncoding);
 		
-		T[] returnedData = gson.fromJson(streamReader, Class<T>);
-		
-		List<T> data = Arrays.stream(returnedData).collect(Collectors.toList()); 
-		
-		//List<T> data;
-		//if(returnedData.length != 0) {
-			//data = Arrays.asList(returnedData);
-		//}else {
-			//data = new ArrayList<>();
-		//}
+		List<T> data = gson.fromJson(streamReader, new TypeToken<List<T>>(){}.getType());
 		
 		inputStream.close();
 		streamReader.close();
