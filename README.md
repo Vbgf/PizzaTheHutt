@@ -2,7 +2,7 @@
 
 This is a super simple pizzeria project to dabble in java programming
 
-## Future good-to-haves
+## Future good-to-haves:
 Copy constructors for the data objects
 
 ## Konown bugs:
