@@ -41,7 +41,7 @@ public class UserManager implements Manager<User>{
 		
 		if(!users.isEmpty()) {
 			for(User user : users) {
-				if(user.getId() == newObject.getId()) {
+				if(user.getId() == newObject.getId() || user.getUsername().equals(newObject.getUsername())) {
 					throw new IllegalArgumentException();
 				}
 			}

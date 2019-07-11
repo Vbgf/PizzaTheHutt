@@ -43,9 +43,11 @@ class UserManagerTest {
 		User user3 = new User();
 		user3.setId(34);
 		User user4 = new User(userId + 1, username + "123", password + "123", UserRoles.USER);
+		User user5 = new User(manager.reserveId(), username, password, role);
 		
 		manager.add(user1);
 		manager.add(user4);
+		assertThrows(IllegalArgumentException.class, () -> manager.add(user5));
 		assertThrows(IllegalArgumentException.class, () -> manager.add(user1));
 		assertThrows(IllegalArgumentException.class, () -> manager.add(user2));
 		assertThrows(IllegalArgumentException.class, () -> manager.add(null));
@@ -76,7 +78,7 @@ class UserManagerTest {
 		
 		User user = new User(manager.reserveId(), "Username", "Password", UserRoles.ADMINISTRATOR);
 		manager.add(user);
-		User user2 = new User(manager.reserveId(), "Username", "Password", UserRoles.ADMINISTRATOR);
+		User user2 = new User(manager.reserveId(), "Username2", "Password", UserRoles.ADMINISTRATOR);
 		manager.add(user2);
 		assertTrue(!manager.getAll().isEmpty());
 		
