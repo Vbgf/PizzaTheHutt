@@ -2,35 +2,18 @@ package core;
 
 import java.io.IOException;
 
-import storage.json.StorageUsersJson;
-import storage.managers.Manager;
+import core.context.Context;
+import ui.console.LoginScreen;
 
 public class App {
 
-	public static void main(String[] args) {		
-		Manager storage = new StorageUsersJson();
+	public static void main(String[] args) {
 		try {
-			storage.load();
-		} catch (IOException e) {
-			System.out.println("Could not connect to the database, program cannot continue.");
-		}
-		
-		try {
-			storage.addUser("", "");
-		}catch(IllegalArgumentException e ) {
-			System.out.println("Could not add user! User already exists!");
-		}
-
-		try {
-			storage.addUser("Pesho", "123");
-		}catch(IllegalArgumentException e ) {
-			System.out.println("Could not add user! User already exists!");
-		}
-		
-		try {
-			storage.save();
-		} catch (IOException e) {
-			System.out.println("Could not connect to the database, program cannot continue.");
+			Context context = Context.getInstance();
+			LoginScreen landingpage = new LoginScreen(context);
+			landingpage.show();
+		}catch(IOException e) {
+			System.out.println("Internal error! Problems with the StackTrace");
 		}
 	}
 }

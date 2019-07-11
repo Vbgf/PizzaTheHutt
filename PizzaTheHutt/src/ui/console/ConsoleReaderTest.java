@@ -18,22 +18,20 @@ class ConsoleReaderTest {
 			return;
 		}
 		
-		ConsoleReader reader = new ConsoleReader();
-		
 		ArrayList<Integer> availableCommands = new ArrayList<Integer>();
 		availableCommands.add(1);
 		availableCommands.add(3);
 		
 		System.out.print("Choose between 1 or 3: ");
 		
-		int res = reader.readMenu(availableCommands);
+		int res = ConsoleReader.readMenu(availableCommands);
 		
 		assertTrue(availableCommands.contains(res));
 
 		System.out.print("Alright! Now do it again!");
 		System.out.print("Choose between 1 or 3: ");
 		
-		res = reader.readMenu(availableCommands);
+		res = ConsoleReader.readMenu(availableCommands);
 		
 		assertTrue(availableCommands.contains(res));
 	}
@@ -44,21 +42,19 @@ class ConsoleReaderTest {
 			return;
 		}
 		
-		ConsoleReader reader = new ConsoleReader();
-		
 		String expected = "asd";
 		System.out.print("Type in \"" + expected + "\": ");
-		String res = reader.read();
+		String res = ConsoleReader.read();
 		assertEquals(expected, res);
 		
 		expected = "1 2 3";
 		System.out.print("Type in \"" + expected + "\": ");
-		res = reader.read();
+		res = ConsoleReader.read();
 		assertEquals(expected, res);
 		
 		expected = " 1 2 3 ";
 		System.out.print("Type in \"" + expected + "\": ");
-		res = reader.read();
+		res = ConsoleReader.read();
 		assertEquals(expected, res);
 	}
 

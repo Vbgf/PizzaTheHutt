@@ -11,7 +11,7 @@ public class ConsoleReader {
 	
 	private static Scanner scanner = new Scanner(System.in);
 	
-	public int readMenu(List<Integer> availableCommands) {
+	public static int readMenu(List<Integer> availableCommands) {
 		String userInput;
 		int res = 0;
 		
@@ -36,7 +36,7 @@ public class ConsoleReader {
 		}
 	}
 	
-	public String read() {
+	public static String read() {
 		String res = new String();
 		if(scanner.hasNextLine()) {
 			res = scanner.nextLine();
