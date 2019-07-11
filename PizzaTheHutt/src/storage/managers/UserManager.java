@@ -24,6 +24,7 @@ public class UserManager implements Manager<User>{
 	
 	public UserManager(File dbFile) throws IOException {
 		this.nextAvailableId = 0;
+		dbFile.getParentFile().mkdirs();
 		this.usersDb = new JacksonJsonParser<User>(User.class, dbFile);
 		this.users = new ArrayList<User>();
 		load();
@@ -32,18 +33,16 @@ public class UserManager implements Manager<User>{
 	@Override
 	public void add(User newObject) throws IllegalArgumentException {
 		if(newObject == null) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Object is null");
 		}
 		
 		if(newObject.getUsername().isEmpty() || newObject.getPassword().isEmpty() || newObject.getRole().equals(UserRoles.UNASSIGNED)) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Username or password is empty or role is unassigned");
 		}		
 		
-		if(!users.isEmpty()) {
-			for(User user : users) {
-				if(user.getId() == newObject.getId() || user.getUsername().equals(newObject.getUsername())) {
-					throw new IllegalArgumentException();
-				}
+		for(User user : users) {
+			if(user.getId() == newObject.getId() || user.getUsername().equals(newObject.getUsername())) {
+				throw new IllegalArgumentException("User already exists");
 			}
 		}
 		
@@ -56,18 +55,16 @@ public class UserManager implements Manager<User>{
 	@Override
 	public User get(long objectId) throws IllegalArgumentException {
 		if(objectId < 0) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Invalid objectId");
 		}
 		
-		if(!users.isEmpty()) {
-			for(User user : users) {
-				if(user.getId() == objectId) {
-					return user;
-				}
+		for(User user : users) {
+			if(user.getId() == objectId) {
+				return user;
 			}
 		}
 		
-		throw new IllegalArgumentException();
+		throw new IllegalArgumentException("User not found");
 	}
 
 	@Override
@@ -78,41 +75,37 @@ public class UserManager implements Manager<User>{
 	@Override
 	public void update(long objectId, User updatedObject) throws IllegalArgumentException {
 		if(updatedObject == null || objectId < 0) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Object is null or objectId is invalid");
 		}
 		
 		if(updatedObject.getUsername().isEmpty() || updatedObject.getPassword().isEmpty() || updatedObject.getRole().equals(UserRoles.UNASSIGNED)) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Username or password is empty or role is unassigned");
 		}
 		
-		if(!users.isEmpty()) {
-			for(User user : users) {
-				if(user.getId() == objectId) {
-					users.set(users.indexOf(user), updatedObject);
-					return;
-				}
+		for(User user : users) {
+			if(user.getId() == objectId) {
+				users.set(users.indexOf(user), updatedObject);
+				return;
 			}
 		}
 		
-		throw new IllegalArgumentException();
+		throw new IllegalArgumentException("User not found");
 	}
 
 	@Override
 	public void delete(long objectId) throws IllegalArgumentException {
 		if(objectId < 0) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Invalid objectId");
 		}
 		
-		if(!users.isEmpty()) {
-			for(User user : users) {
-				if(user.getId() == objectId) {
-					users.remove(user);
-					return;
-				}
+		for(User user : users) {
+			if(user.getId() == objectId) {
+				users.remove(user);
+				return;
 			}
 		}
 		
-		throw new IllegalArgumentException();
+		throw new IllegalArgumentException("User not found");
 	}
 	
 	@Override

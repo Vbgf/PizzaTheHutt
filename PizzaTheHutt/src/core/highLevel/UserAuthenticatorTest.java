@@ -37,7 +37,7 @@ class UserAuthenticatorTest {
 		assertThrows(IllegalArgumentException.class, () -> authenticator.authenticate(username, password));
 		
 		manager.add(user);
-		assertEquals(role, authenticator.authenticate(username, password));
+		assertEquals(user, authenticator.authenticate(username, password));
 		
 
 		assertThrows(IllegalArgumentException.class, () -> authenticator.authenticate(username + "asd", password + "asd"));

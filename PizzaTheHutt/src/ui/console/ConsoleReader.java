@@ -17,6 +17,7 @@ public class ConsoleReader {
 		
 		while(true) {
 			try {
+				System.out.print("Please enter your choice: ");
 				if(scanner.hasNextLine()) {
 					userInput = scanner.nextLine();
 					res = Integer.parseInt(userInput);
@@ -24,7 +25,7 @@ public class ConsoleReader {
 					if(availableCommands.contains(res)) {
 						return res;
 					}else {
-						throw new NumberFormatException();
+						throw new NumberFormatException("Command not found");
 					}
 				}else {
 					scanner.next();
@@ -37,7 +38,7 @@ public class ConsoleReader {
 	}
 	
 	public static String read() {
-		String res = new String();
+		String res = "";
 		if(scanner.hasNextLine()) {
 			res = scanner.nextLine();
 		}else {

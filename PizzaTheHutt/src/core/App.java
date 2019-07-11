@@ -8,12 +8,15 @@ import ui.console.LoginScreen;
 public class App {
 
 	public static void main(String[] args) {
+		Context context;
 		try {
-			Context context = Context.getInstance();
-			LoginScreen landingpage = new LoginScreen(context);
-			landingpage.show();
+			context = Context.getInstance();
 		}catch(IOException e) {
-			System.out.println("Internal error! Problems with the StackTrace");
+			System.out.println("Something went wrong when establishing the program context! Please consult a wizzard for help.");
+			return;
 		}
+
+		LoginScreen loginScreen = new LoginScreen(context);
+		loginScreen.show();
 	}
 }

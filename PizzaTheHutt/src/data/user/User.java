@@ -21,13 +21,13 @@ public class User {
 		if(username != null) {
 			this.username = username;
 		}else {
-			this.username = new String();
+			this.username = "";
 		}
 		
 		if(password != null) {
 			this.password = password;
 		}else {
-			this.password = new String();
+			this.password = "";
 		}
 		
 		this.role = role;

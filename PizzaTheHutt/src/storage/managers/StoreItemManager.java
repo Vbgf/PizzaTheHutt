@@ -23,6 +23,7 @@ public class StoreItemManager implements Manager<StoreItem>{
 	
 	public StoreItemManager(File dbFile) throws IOException {
 		this.nextAvailableId = 0;
+		dbFile.getParentFile().mkdirs();
 		this.itemsDb = new JacksonJsonParser<StoreItem>(StoreItem.class, dbFile);
 		this.items = new ArrayList<StoreItem>();
 		load();
@@ -31,18 +32,16 @@ public class StoreItemManager implements Manager<StoreItem>{
 	@Override
 	public void add(StoreItem newObject) throws IllegalArgumentException {
 		if(newObject == null) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Object is null");
 		}
 		
 		if(newObject.getName().isEmpty() || newObject.getPrice() == 0) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Name or password is empty");
 		}		
 		
-		if(!items.isEmpty()) {
-			for(StoreItem item : items) {
-				if(item.getId() == newObject.getId()) {
-					throw new IllegalArgumentException();
-				}
+		for(StoreItem item : items) {
+			if(item.getId() == newObject.getId()) {
+				throw new IllegalArgumentException("Item already exists");
 			}
 		}
 		
@@ -55,18 +54,16 @@ public class StoreItemManager implements Manager<StoreItem>{
 	@Override
 	public StoreItem get(long objectId) throws IllegalArgumentException {
 		if(objectId < 0) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Inavlid objectId");
 		}
 		
-		if(!items.isEmpty()) {
-			for(StoreItem item : items) {
-				if(item.getId() == objectId) {
-					return item;
-				}
+		for(StoreItem item : items) {
+			if(item.getId() == objectId) {
+				return item;
 			}
 		}
-		
-		throw new IllegalArgumentException();
+			
+		throw new IllegalArgumentException("Item not found");
 	}
 
 	@Override
@@ -77,41 +74,38 @@ public class StoreItemManager implements Manager<StoreItem>{
 	@Override
 	public void update(long objectId, StoreItem updatedObject) throws IllegalArgumentException {
 		if(updatedObject == null || objectId < 0) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Object is null or objectId is invalid");
 		}
 		
 		if(updatedObject.getName().isEmpty() || updatedObject.getPrice() == 0) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Name or password is empty");
 		}
 		
-		if(!items.isEmpty()) {
-			for(StoreItem item : items) {
-				if(item.getId() == objectId) {
-					items.set(items.indexOf(item), updatedObject);
-					return;
-				}
+		
+		for(StoreItem item : items) {
+			if(item.getId() == objectId) {
+				items.set(items.indexOf(item), updatedObject);
+				return;
 			}
 		}
 		
-		throw new IllegalArgumentException();
+		throw new IllegalArgumentException("Item not found");
 	}
 
 	@Override
 	public void delete(long objectId) throws IllegalArgumentException {
 		if(objectId < 0) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Invalid objectId");
 		}
 		
-		if(!items.isEmpty()) {
-			for(StoreItem item : items) {
-				if(item.getId() == objectId) {
-					items.remove(item);
-					return;
-				}
+		for(StoreItem item : items) {
+			if(item.getId() == objectId) {
+				items.remove(item);
+				return;
 			}
 		}
 		
-		throw new IllegalArgumentException();
+		throw new IllegalArgumentException("Item not found");
 	}
 	
 	@Override

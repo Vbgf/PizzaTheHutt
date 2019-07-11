@@ -24,6 +24,7 @@ public class OrderManager implements Manager<Order>{
 	
 	public OrderManager(File dbFile) throws IOException {
 		this.nextAvailableId = 0;
+		dbFile.getParentFile().mkdirs();
 		this.ordersDb = new JacksonJsonParser<Order>(Order.class, dbFile);
 		this.orders = new ArrayList<Order>();
 		load();
@@ -36,14 +37,12 @@ public class OrderManager implements Manager<Order>{
 		}
 		
 		if(newObject.getItems().isEmpty() || newObject.getStatus() == OrderStatus.UNASSIGNED || newObject.getTimestamp() == 0) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Items are empty, status in unassigned or timestamp is 0");
 		}		
 		
-		if(!orders.isEmpty()) {
-			for(Order order : orders) {
-				if(order.getId() == newObject.getId()) {
-					throw new IllegalArgumentException();
-				}
+		for(Order order : orders) {
+			if(order.getId() == newObject.getId()) {
+				throw new IllegalArgumentException("Order exists");
 			}
 		}
 		
@@ -56,18 +55,16 @@ public class OrderManager implements Manager<Order>{
 	@Override
 	public Order get(long objectId) throws IllegalArgumentException {
 		if(objectId < 0) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Invalid objectId");
 		}
 		
-		if(!orders.isEmpty()) {
-			for(Order order : orders) {
-				if(order.getId() == objectId) {
-					return order;
-				}
+		for(Order order : orders) {
+			if(order.getId() == objectId) {
+				return order;
 			}
 		}
 		
-		throw new IllegalArgumentException();
+		throw new IllegalArgumentException("Order not found");
 	}
 
 	@Override
@@ -78,41 +75,37 @@ public class OrderManager implements Manager<Order>{
 	@Override
 	public void update(long objectId, Order updatedObject) throws IllegalArgumentException {
 		if(updatedObject == null || objectId < 0) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Object is null or objectId is invalid");
 		}
 
 		if(updatedObject.getItems().isEmpty() || updatedObject.getStatus() == OrderStatus.UNASSIGNED || updatedObject.getTimestamp() == 0) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Items are empty, status in unassigned or timestamp is 0");
 		}
-		
-		if(!orders.isEmpty()) {
-			for(Order order : orders) {
-				if(order.getId() == objectId) {
-					orders.set(orders.indexOf(order), updatedObject);
-					return;
-				}
+
+		for(Order order : orders) {
+			if(order.getId() == objectId) {
+				orders.set(orders.indexOf(order), updatedObject);
+				return;
 			}
 		}
 		
-		throw new IllegalArgumentException();
+		throw new IllegalArgumentException("Order not found");
 	}
 
 	@Override
 	public void delete(long objectId) throws IllegalArgumentException {
 		if(objectId < 0) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Invalid objectId");
 		}
 		
-		if(!orders.isEmpty()) {
-			for(Order order : orders) {
-				if(order.getId() == objectId) {
-					orders.remove(order);
-					return;
-				}
+		for(Order order : orders) {
+			if(order.getId() == objectId) {
+				orders.remove(order);
+				return;
 			}
 		}
 		
-		throw new IllegalArgumentException();
+		throw new IllegalArgumentException("Order not found");
 	}
 
 	@Override

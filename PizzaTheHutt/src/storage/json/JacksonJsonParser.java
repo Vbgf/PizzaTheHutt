@@ -40,11 +40,11 @@ public class JacksonJsonParser<T> implements Storage<T>{
 	@Override
 	public void save(List<T> data) throws IOException {
 		if(data == null) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Data is null");
 		}
 		
 		if(data.isEmpty()) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Data is empty");
 		}
 		
 		if (!dbFile.exists()) {

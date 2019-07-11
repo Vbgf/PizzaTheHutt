@@ -4,9 +4,8 @@ import java.util.Arrays;
 
 import core.context.Context;
 import core.highLevel.UserAuthenticator;
-import data.user.UserRoles;
 
-public class LoginScreen extends UIBase{
+public class LoginScreen extends BaseUI{
 
 	public LoginScreen(Context context) {
 		super(context);
@@ -14,11 +13,12 @@ public class LoginScreen extends UIBase{
 
 	@Override
 	public int show() {
+		System.out.println("Hello and welcome!");
 		while(true) {
-			System.out.println("Hello and welcome!");
+			System.out.println();
 			System.out.println("Please login to continue.");
-			System.out.println("1. OK");
-			System.out.println("9. Exit");
+			System.out.println("1. Sure, let me put in my credentials");
+			System.out.println("9. No, thanks");
 			
 			int userInput = ConsoleReader.readMenu(Arrays.asList(1, 9));
 			
@@ -29,45 +29,32 @@ public class LoginScreen extends UIBase{
 				String password = ConsoleReader.read();
 				
 				UserAuthenticator auth = new UserAuthenticator(context.getUserManager());
-				UserRoles role =  UserRoles.UNASSIGNED;
 				try {
-					role = auth.authenticate(username, password);
+					context.setCurrentUser( auth.authenticate(username, password) );
 				}catch(IllegalArgumentException e) {
-					System.out.print("No such user found!");
+					System.out.println("No such user found!");
 				}
 				
-				switch (role) {
+				switch (context.getCurrentUser().getRole()) {
 				case USER:
-					//user UI
+					MainUserScreen mainUserScreen = new MainUserScreen(context);
+					mainUserScreen.show();
 					break;
 				case MANAGER:
-					//manager UI
+					System.out.println("Handling MANAGER: Not implemented yet");
 					break;
 				case ADMINISTRATOR:
-					//ADMIN UI
+					System.out.println("Handling ADMINISTRATOR: Not implemented yet");
 					break;
 				case UNASSIGNED:
-					//no role UI
+					System.out.println("Handling UNASSIGNED: Not implemented yet");
 					break;
 				}
 				
 			}else if(userInput == 9) {
-
-				/*
-				try {
-					System.out.print("Goodbye!!");
-					TimeUnit.SECONDS.sleep(1);
-					//context.save();
-				} catch (IOException e) {
-				}catch{
-					
-				}
+				System.out.println("Thank you for using our pizzeria. Goodbye!");
 				System.exit(0);
-				
-				*/	
 			}
-		
-			return userInput;
 		}
 	}
 }

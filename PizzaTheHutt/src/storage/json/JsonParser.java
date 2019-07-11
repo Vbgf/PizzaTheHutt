@@ -36,7 +36,7 @@ public class JsonParser<T> implements Storage<T> {
 	@Override
 	public List<T> load() throws IOException {
 		if (!dbFile.exists()) {
-			throw new IOException();
+			throw new IOException("File does not exist");
 		}
 
 		FileInputStream inputStream = new FileInputStream(dbFile);
@@ -53,11 +53,11 @@ public class JsonParser<T> implements Storage<T> {
 	@Override
 	public void save(List<T> data) throws IOException, IllegalArgumentException {
 		if(data == null) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Data is null");
 		}
 		
 		if(data.isEmpty()) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Data is empty");
 		}
 		
 		if (!dbFile.exists()) {
