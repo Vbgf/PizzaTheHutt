@@ -6,7 +6,7 @@ import core.context.Context;
 import ui.console.LoginScreen;
 
 public class App {
-
+	
 	public static void main(String[] args) {
 		Context context;
 		try {
@@ -16,7 +16,6 @@ public class App {
 			return;
 		}
 
-		LoginScreen loginScreen = new LoginScreen(context);
-		loginScreen.show();
+		new LoginScreen(context).show();
 	}
 }

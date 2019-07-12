@@ -55,7 +55,7 @@ class UserTest {
 	
 	@Test
 	void testSetRole() {
-		UserRoles role = UserRoles.ADMINISTRATOR;
+		UserRoles role = UserRoles.WORKER;
 		User user = new User();
 		user.setRole(role);
 		assertEquals(role, user.getRole());

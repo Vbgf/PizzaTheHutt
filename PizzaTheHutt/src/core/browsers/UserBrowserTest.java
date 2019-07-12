@@ -1,4 +1,4 @@
-package core.highLevel;
+package core.browsers;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,21 +13,21 @@ import data.user.User;
 import data.user.UserRoles;
 import storage.managers.UserManager;
 
-class UserAuthenticatorTest {
+class UserBrowserTest {
 
 	private static final File testDbFile = new File("data\\testusers.json");
 	
 	@Test
 	void testUserAuthenticator() throws IOException {
 		UserManager manager = new UserManager(testDbFile);
-		UserAuthenticator authenticator = new UserAuthenticator(manager);
+		UserBrowser authenticator = new UserBrowser(manager);
 		assertThrows(IllegalArgumentException.class, () -> authenticator.authenticate("", ""));
 	}
 
 	@Test
 	void testAuthenticate() throws IOException {
 		UserManager manager = new UserManager(testDbFile);
-		UserAuthenticator authenticator = new UserAuthenticator(manager);
+		UserBrowser authenticator = new UserBrowser(manager);
 		
 		String username = "Gosho";
 		String password = "12345";

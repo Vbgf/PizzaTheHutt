@@ -76,9 +76,9 @@ class UserManagerTest {
 		UserManager manager = new UserManager(testDbFile);
 		assertTrue(manager.getAll().isEmpty());
 		
-		User user = new User(manager.reserveId(), "Username", "Password", UserRoles.ADMINISTRATOR);
+		User user = new User(manager.reserveId(), "Username", "Password", UserRoles.WORKER);
 		manager.add(user);
-		User user2 = new User(manager.reserveId(), "Username2", "Password", UserRoles.ADMINISTRATOR);
+		User user2 = new User(manager.reserveId(), "Username2", "Password", UserRoles.WORKER);
 		manager.add(user2);
 		assertTrue(!manager.getAll().isEmpty());
 		
@@ -160,7 +160,7 @@ class UserManagerTest {
 		assertEquals(0, manager.reserveId());
 		
 		manager.add(user1);
-		User user = new User(manager.reserveId(), "Username", "Password", UserRoles.ADMINISTRATOR);
+		User user = new User(manager.reserveId(), "Username", "Password", UserRoles.WORKER);
 		manager.add(user);
 		
 		assertEquals(user.getId(), user1.getId() + 1);

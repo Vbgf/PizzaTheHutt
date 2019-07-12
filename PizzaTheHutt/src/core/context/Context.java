@@ -2,6 +2,7 @@ package core.context;
 
 import java.io.IOException;
 
+import data.order.Order;
 import data.user.User;
 import storage.managers.OrderManager;
 import storage.managers.StoreItemManager;
@@ -22,12 +23,14 @@ public class Context {
 	private StoreItemManager itemManager;
 	private OrderManager orderManager;
 	private User currentUser;
+	private Order currentOrder;
 	
 	private Context () throws IOException {
 		this.userManager = new UserManager();
 		this.itemManager = new StoreItemManager();
 		this.orderManager = new OrderManager();
-		this.setCurrentUser(new User());
+		this.currentUser = new User();
+		this.currentOrder = new Order();
 	}
 	
 	public void saveAll() throws IOException {
@@ -55,6 +58,14 @@ public class Context {
 
 	public void setCurrentUser(User currentUser) {
 		this.currentUser = currentUser;
+	}
+
+	public Order getCurrentOrder() {
+		return currentOrder;
+	}
+
+	public void setCurrentOrder(Order currentOrder) {
+		this.currentOrder = currentOrder;
 	}
 	
 	

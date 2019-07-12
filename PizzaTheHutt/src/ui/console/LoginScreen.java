@@ -2,33 +2,42 @@ package ui.console;
 
 import java.util.Arrays;
 
+import core.browsers.UserBrowser;
 import core.context.Context;
-import core.highLevel.UserAuthenticator;
 
 public class LoginScreen extends BaseUI{
 
+	private static final int LOGIN = 1;
+	private static final int REGISTER = 2;
+	
 	public LoginScreen(Context context) {
 		super(context);
 	}
+	
+	public void showMenu() {
+		System.out.println();
+		System.out.println("Please login to continue shopping");
+		System.out.println(LOGIN + ". Sure, let me put in my credentials");
+		System.out.println(REGISTER + ". I don't have an account");
+		System.out.println(BACK + ". No, thanks. Goodbye!");
+	}
 
 	@Override
-	public int show() {
+	public void show() {
 		System.out.println("Hello and welcome!");
+		
 		while(true) {
-			System.out.println();
-			System.out.println("Please login to continue.");
-			System.out.println("1. Sure, let me put in my credentials");
-			System.out.println("9. No, thanks");
+			showMenu();
+			int userInput = ConsoleReader.readMenu(Arrays.asList(BACK, LOGIN, REGISTER));
 			
-			int userInput = ConsoleReader.readMenu(Arrays.asList(1, 9));
-			
-			if(userInput == 1) {
+			switch (userInput) {
+			case LOGIN:
 				System.out.print("Username: ");
 				String username = ConsoleReader.read();
 				System.out.print("Password: ");
 				String password = ConsoleReader.read();
 				
-				UserAuthenticator auth = new UserAuthenticator(context.getUserManager());
+				UserBrowser auth = new UserBrowser(context.getUserManager());
 				try {
 					context.setCurrentUser( auth.authenticate(username, password) );
 				}catch(IllegalArgumentException e) {
@@ -37,22 +46,29 @@ public class LoginScreen extends BaseUI{
 				
 				switch (context.getCurrentUser().getRole()) {
 				case USER:
-					MainUserScreen mainUserScreen = new MainUserScreen(context);
-					mainUserScreen.show();
+					new UserMainScreen(context).show();
 					break;
+					
+				case WORKER:
+					new WorkerMainScreen(context).show();
+					break;
+					
 				case MANAGER:
-					System.out.println("Handling MANAGER: Not implemented yet");
+					new ManagerMainScreen(context).show();
 					break;
-				case ADMINISTRATOR:
-					System.out.println("Handling ADMINISTRATOR: Not implemented yet");
-					break;
+					
 				case UNASSIGNED:
-					System.out.println("Handling UNASSIGNED: Not implemented yet");
 					break;
 				}
+				break;
 				
-			}else if(userInput == 9) {
-				System.out.println("Thank you for using our pizzeria. Goodbye!");
+			case REGISTER:
+				new UserRegisterScreen(context).show();
+				break;
+				
+			case BACK:
+				System.out.println();
+				System.out.println("Thank you for stopping by. Goodbye!");
 				System.exit(0);
 			}
 		}

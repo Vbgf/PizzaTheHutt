@@ -115,7 +115,7 @@ class StoreItemTest {
 		
 		StoreItem item = new StoreItem(id, name, price, description, active);
 		
-		String expected = "ID: " + id + "; Name: " + name + "; Price: " + price + "; Description: " + description + "; Active: " + active;
+		String expected = "ID: " + id + "; Name: " + name + "; Price: " + price + "BGN; Description: " + description + "; Active: " + active;
 		assertEquals(expected, item.toString());
 	}
 }

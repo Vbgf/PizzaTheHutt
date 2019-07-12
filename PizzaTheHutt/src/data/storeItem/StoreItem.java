@@ -5,7 +5,7 @@ public class StoreItem {
 	private static final long DEFAULT_ID = -1;
 	private static final double  DEFAULT_PRICE = 0;
 	private static final boolean  DEFAULT_STATE = false;
-	
+
 	private long id;
 	private String name;
 	private double price;
@@ -42,6 +42,14 @@ public class StoreItem {
 		}
 		
 		this.active = active;
+	}
+	
+	public StoreItem(StoreItem item) {
+		this.id = item.id;
+		this.name = item.name;
+		this.price = item.price;
+		this.description = item.description;
+		this.active = item.active;
 	}
 	
 	public long getId() {
@@ -89,9 +97,25 @@ public class StoreItem {
 		StringBuilder builder = new StringBuilder();
 		builder.append("ID: " + this.id + "; ");
 		builder.append("Name: " + this.name + "; ");
-		builder.append("Price: " + this.price + "; ");
+		builder.append("Price: " + this.price + "BGN; ");
 		builder.append("Description: " + this.description + "; ");
 		builder.append("Active: " + this.active);
 		return builder.toString();
+	}
+	
+	public boolean equals(StoreItem item) {
+		if(this.id != item.id) {
+			return false;
+		}else if(!this.name.equals(item.name)) {
+			return false;
+		}else if(this.price != item.price){
+			return false;
+		}else if(!this.description.equals(item.description)){
+			return false;
+		}else if(this.active != item.active) {
+			return false;
+		}else {
+			return true;
+		}
 	}
 }

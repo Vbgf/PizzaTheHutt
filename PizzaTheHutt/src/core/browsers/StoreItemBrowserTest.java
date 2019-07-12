@@ -1,4 +1,4 @@
-package core.highLevel;
+package core.browsers;
 
 import static org.junit.jupiter.api.Assertions.*;
 

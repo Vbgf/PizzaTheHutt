@@ -37,7 +37,7 @@ public class StoreItemManager implements Manager<StoreItem>{
 		
 		if(newObject.getName().isEmpty() || newObject.getPrice() == 0) {
 			throw new IllegalArgumentException("Name or password is empty");
-		}		
+		}
 		
 		for(StoreItem item : items) {
 			if(item.getId() == newObject.getId()) {

@@ -2,10 +2,15 @@
   "id" : 0,
   "username" : "admin",
   "password" : "admin",
-  "role" : "ADMINISTRATOR"
+  "role" : "MANAGER"
 }, {
   "id" : 1,
   "username" : "Gosho",
   "password" : "123",
+  "role" : "WORKER"
+}, {
+  "id" : 2,
+  "username" : "Pesho",
+  "password" : "321",
   "role" : "USER"
 } ]

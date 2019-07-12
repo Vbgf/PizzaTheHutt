@@ -1,4 +1,4 @@
-package core.highLevel;
+package core.browsers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,5 +36,14 @@ public class StoreItemBrowser {
 		}
 		
 		return items;
+	}
+	
+	public static String listToString(List<StoreItem> items) {
+		StringBuilder builder = new StringBuilder();
+		for(StoreItem item : items) {
+			builder.append(item.toString());
+			builder.append("\n");
+		}
+		return builder.toString();
 	}
 }

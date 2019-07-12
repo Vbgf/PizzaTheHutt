@@ -1,13 +1,15 @@
-package core.highLevel;
+package core.browsers;
+
+import java.util.List;
 
 import data.user.User;
 import storage.managers.UserManager;
 
-public class UserAuthenticator {
+public class UserBrowser {
 	
 	private UserManager manager;
 	
-	public UserAuthenticator(UserManager manager) {
+	public UserBrowser(UserManager manager) {
 		this.manager = manager;
 	}
 	
@@ -20,5 +22,14 @@ public class UserAuthenticator {
 		}
 		
 		throw new IllegalArgumentException("User not found");
+	}
+	
+	public static String listToString(List<User> users) {
+		StringBuilder builder = new StringBuilder();
+		for(User user : users) {
+			builder.append(user.toString());
+			builder.append("\n");
+		}
+		return builder.toString();
 	}
 }
