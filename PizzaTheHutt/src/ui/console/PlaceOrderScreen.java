@@ -27,7 +27,7 @@ public class PlaceOrderScreen extends BaseUI{
 		}
 		new GetCurrentOrderScreen(context).show();
 		
-		System.out.println("Are you sure you want to order these items?");
+		System.out.println("Do you want to order these items?");
 		System.out.println(YES + ". Yes");
 		System.out.println(BACK + ". No");
 		int userInput = ConsoleReader.readMenu(Arrays.asList(BACK, YES));
@@ -35,6 +35,7 @@ public class PlaceOrderScreen extends BaseUI{
 		switch (userInput) {
 		case YES:
 			context.getCurrentOrder().setId(context.getOrderManager().reserveId());
+			context.getCurrentOrder().setUserId(context.getCurrentUser().getId());
 			context.getCurrentOrder().setStatus(OrderStatus.NEW);
 			context.getCurrentOrder().setTimestamp(System.currentTimeMillis());
 			

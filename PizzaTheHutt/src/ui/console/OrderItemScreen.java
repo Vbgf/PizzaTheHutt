@@ -70,8 +70,5 @@ public class OrderItemScreen extends BaseUI{
 			return;
 		}
 		
-		
-		
 	}
-
 }

@@ -37,15 +37,15 @@ public class WorkerMainScreen extends BaseUI {
 			
 			switch(userInput) {
 			case GET_ACTIVE_ORDERS:
-				System.out.println("Handling 1");
+				System.out.println("TODO: Expect soon!");
 				break;
 				
 			case MARK_FINISHED:
-				System.out.println("Handling 2");
+				System.out.println("TODO: Expect soon!");
 				break;
 				
 			case REQUEST_CANCEL:
-				System.out.println("Handling 3");
+				System.out.println("TODO: Expect soon!");
 				break;
 				
 			case BACK:

@@ -97,25 +97,31 @@ public class ManagerMainScreen extends BaseUI {
 				break;
 				
 			case MODIFY_USER:
+				System.out.println("TODO: Expect soon!");
 				break;
 				
 			case MODIFY_ORDER:
+				System.out.println("TODO: Expect soon!");
 				break;
 				
 			case GET_ALL_ORDERS:
-				//new GetAllOrdersScreen(context).show();
+				new GetAllOrdersScreen(context).show();
 				break;
 				
 			case GET_FINISHED_ORDERS:
+				System.out.println("TODO: Expect soon!");
 				break;
 				
 			case GET_UNFINISHED_ORDERS:
+				System.out.println("TODO: Expect soon!");
 				break;
 				
 			case GET_ALL_LAST30DAYS:
+				System.out.println("TODO: Expect soon!");
 				break;
 				
 			case GET_REQUEST_CANCEL_ORDERS:
+				System.out.println("TODO: Expect soon!");
 				break;
 				
 			case BACK:

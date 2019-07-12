@@ -25,8 +25,9 @@ public class DeleteFromOrderScreen extends BaseUI{
 		}
 		
 		List<Integer> itemIds = new ArrayList<Integer>();
-		for(StoreItem item : items) {
-			int currentIndex = items.indexOf(item);
+		int currentIndex = 0;
+		for(StoreItem item : items) {	
+			currentIndex++;		
 			itemIds.add(currentIndex);
 			System.out.print("ID: " + currentIndex + "; ");
 			System.out.print("Name: " + item.getName() + "; ");
@@ -38,29 +39,26 @@ public class DeleteFromOrderScreen extends BaseUI{
 		System.out.println("Select an item to delete");
 		System.out.print("Item ID: ");
 		
-		long id;
-		StoreItem item = null;
+		int chosenId;
 		try {
-			id = Long.parseLong(ConsoleReader.read());
+			chosenId = Integer.parseInt(ConsoleReader.read());
+			
+			if(!itemIds.contains(chosenId)) {
+				throw new IllegalArgumentException("ID not found");
+			}
+			
 		}catch (IllegalArgumentException e) {
 			System.out.println("Invalid ID! Please try again");
 			return;
 		}
-		
-		for(StoreItem orderItem : items) {
-			if(orderItem.getId() == id) {
-				item = orderItem;
-				break;
-			}
-		}
-		
-		if(item == null) {
-			System.out.println("Invalid ID! Please try again");
-			return;
-		}
+		int actualId = chosenId - 1;
 
 		System.out.println();
-		System.out.println(item);
+
+		System.out.print("ID: " + chosenId + "; ");
+		System.out.print("Name: " + items.get(actualId).getName() + "; ");
+		System.out.print("Price: " + items.get(actualId).getPrice() + "; ");
+		System.out.println("Description: " + items.get(actualId).getDescription());
 		
 		System.out.println("Do you want to delete the item from your order?");
 		System.out.println(YES + ". Yes");
@@ -69,14 +67,11 @@ public class DeleteFromOrderScreen extends BaseUI{
 		
 		switch (userInput) {
 		case YES:
-			context.getCurrentOrder().getItems().remove(items.indexOf(item));
+			items.remove(actualId);
 			System.out.println("Done!");
 			
 		case BACK:
 			return;
 		}
-
-		
 	}
-
 }

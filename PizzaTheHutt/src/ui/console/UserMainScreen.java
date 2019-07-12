@@ -3,8 +3,6 @@ package ui.console;
 import java.util.Arrays;
 
 import core.context.Context;
-import data.order.Order;
-import data.user.User;
 
 public class UserMainScreen extends BaseUI{
 
@@ -66,16 +64,15 @@ public class UserMainScreen extends BaseUI{
 				break;
 				
 			case PAST_ORDERS:
-				System.out.println("Handling 5");
+				new GetPreviousOrdersScreen(context).show();
 				break;
 				
 			case PLACE_PAST_ORDER:
-				System.out.println("Handling 6");
+				new ReorderScreen(context).show();
 				break;
 				
 			case BACK:
-				context.setCurrentUser(new User());
-				context.setCurrentOrder(new Order());
+				new LogoutScreen(context).show();
 				return;
 			}
 		}

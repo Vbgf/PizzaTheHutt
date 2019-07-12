@@ -36,17 +36,18 @@ class OrderManagerTest {
 		OrderManager manager = new OrderManager(testDbFile);
 		
 		long id = 334;
+		long userId = 123;
 		ArrayList<StoreItem> items = new ArrayList<StoreItem>();
 		items.add(new StoreItem());
 		items.add(new StoreItem());
 		OrderStatus status = OrderStatus.NEW;
 		long timestamp = 23452354;
 		
-		Order order1 = new Order(id, items, status, timestamp);
-		Order order2 = new Order(id, items, OrderStatus.FINISHED, timestamp + 2345);
+		Order order1 = new Order(id, userId, items, status, timestamp);
+		Order order2 = new Order(id, userId, items, OrderStatus.FINISHED, timestamp + 2345);
 		Order order3 = new Order();
 		order3.setId(34);
-		Order order4 = new Order(id + 1, items, status, timestamp);
+		Order order4 = new Order(id + 1, userId, items, status, timestamp);
 		
 		manager.add(order1);
 		manager.add(order4);
@@ -61,12 +62,13 @@ class OrderManagerTest {
 		OrderManager manager = new OrderManager(testDbFile);
 		
 		long id = 334;
+		long userId = 123;
 		ArrayList<StoreItem> items = new ArrayList<StoreItem>();
 		items.add(new StoreItem());
 		items.add(new StoreItem());
 		OrderStatus status = OrderStatus.NEW;
 		long timestamp = 23452354;
-		Order order1 = new Order(id, items, status, timestamp);
+		Order order1 = new Order(id, userId, items, status, timestamp);
 		
 		assertThrows(IllegalArgumentException.class, () -> manager.get(-1));
 		assertThrows(IllegalArgumentException.class, () -> manager.get(0));
@@ -81,15 +83,16 @@ class OrderManagerTest {
 		assertTrue(manager.getAll().isEmpty());
 		
 		long id = 334;
+		long userId = 123;
 		ArrayList<StoreItem> items = new ArrayList<StoreItem>();
 		items.add(new StoreItem());
 		items.add(new StoreItem());
 		OrderStatus status = OrderStatus.NEW;
 		long timestamp = 23452354;
-		Order order = new Order(id, items, status, timestamp);
+		Order order = new Order(id, userId, items, status, timestamp);
 		
 		manager.add(order);
-		Order order2 = new Order(manager.reserveId(), items, status, timestamp);
+		Order order2 = new Order(manager.reserveId(), userId, items, status, timestamp);
 		manager.add(order2);
 		assertTrue(!manager.getAll().isEmpty());
 		
@@ -103,13 +106,14 @@ class OrderManagerTest {
 		OrderManager manager = new OrderManager(testDbFile);
 		
 		long id = 334;
+		long userId = 123;
 		ArrayList<StoreItem> items = new ArrayList<StoreItem>();
 		items.add(new StoreItem());
 		items.add(new StoreItem());
 		OrderStatus status = OrderStatus.NEW;
 		long timestamp = 23452354;
-		Order order1 = new Order(id, items, status, timestamp);
-		Order order2 = new Order(id, items, OrderStatus.FINISHED, timestamp ++);
+		Order order1 = new Order(id, userId, items, status, timestamp);
+		Order order2 = new Order(id, userId, items, OrderStatus.FINISHED, timestamp ++);
 
 		assertThrows(IllegalArgumentException.class, () -> manager.update(0, order1));
 		manager.add(order1);
@@ -126,12 +130,13 @@ class OrderManagerTest {
 		OrderManager manager = new OrderManager(testDbFile);
 		
 		long id = 334;
+		long userId = 123;
 		ArrayList<StoreItem> items = new ArrayList<StoreItem>();
 		items.add(new StoreItem());
 		items.add(new StoreItem());
 		OrderStatus status = OrderStatus.NEW;
 		long timestamp = 23452354;
-		Order order = new Order(id, items, status, timestamp);
+		Order order = new Order(id, userId, items, status, timestamp);
 
 		assertThrows(IllegalArgumentException.class, () -> manager.delete(0));
 		assertThrows(IllegalArgumentException.class, () -> manager.delete(-1));
@@ -148,12 +153,13 @@ class OrderManagerTest {
 		assertTrue(manager.getAll().isEmpty());
 
 		long id = 334;
+		long userId = 123;
 		ArrayList<StoreItem> items = new ArrayList<StoreItem>();
 		items.add(new StoreItem());
 		items.add(new StoreItem());
 		OrderStatus status = OrderStatus.NEW;
 		long timestamp = 23452354;
-		Order order = new Order(id, items, status, timestamp);
+		Order order = new Order(id, userId, items, status, timestamp);
 		
 		manager.add(order);
 		manager.save();
@@ -168,12 +174,13 @@ class OrderManagerTest {
 		assertThrows(IllegalArgumentException.class, () -> manager.save());
 
 		long id = 334;
+		long userId = 123;
 		ArrayList<StoreItem> items = new ArrayList<StoreItem>();
 		items.add(new StoreItem());
 		items.add(new StoreItem());
 		OrderStatus status = OrderStatus.NEW;
 		long timestamp = 23452354;
-		Order order = new Order(id, items, status, timestamp);
+		Order order = new Order(id, userId, items, status, timestamp);
 		
 		manager.add(order);
 		manager.save();
@@ -188,12 +195,13 @@ class OrderManagerTest {
 		assertEquals(1, manager.reserveId());
 
 		long id = 334;
+		long userId = 123;
 		ArrayList<StoreItem> items = new ArrayList<StoreItem>();
 		items.add(new StoreItem());
 		items.add(new StoreItem());
 		OrderStatus status = OrderStatus.NEW;
 		long timestamp = 23452354;
-		Order order = new Order(id, items, status, timestamp);
+		Order order = new Order(id, userId, items, status, timestamp);
 		
 		manager.add(order);
 		assertEquals(order.getId() + 1, manager.reserveId());
@@ -202,7 +210,7 @@ class OrderManagerTest {
 		assertEquals(0, manager.reserveId());
 		
 		manager.add(order);
-		Order order2 = new Order(manager.reserveId(), items, status, timestamp);
+		Order order2 = new Order(manager.reserveId(), userId, items, status, timestamp);
 		manager.add(order2);
 		
 		assertEquals(order2.getId(), order.getId() + 1);

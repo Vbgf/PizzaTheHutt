@@ -13,4 +13,9 @@
   "username" : "Pesho",
   "password" : "321",
   "role" : "USER"
+}, {
+  "id" : 3,
+  "username" : "Tosho",
+  "password" : "123",
+  "role" : "USER"
 } ]

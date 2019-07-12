@@ -23,19 +23,28 @@ class OrderTest {
 	@Test
 	void testOrderIntArrayListOfStoreItemOrderStatusDate() {
 		long id = 445;
+		long userid = 7;
 		ArrayList<StoreItem> items = new ArrayList<>();
 		items.add(new StoreItem());
 		items.add(new StoreItem());
 		OrderStatus status = OrderStatus.CANCELED;
 		long timestamp = 3345;
 		
-		Order order = new Order(id, items, status, timestamp);
+		Order order = new Order(id, userid, items, status, timestamp);
 		assertEquals(id, order.getId());
 		assertEquals(items, order.getItems());
 		assertEquals(status, order.getStatus());
 		assertEquals(timestamp, order.getTimestamp());
 	}
 
+	@Test
+	void testSetUserId() {
+		long newUserId = 223454;
+		Order order = new Order();
+		order.setUserId(newUserId);
+		
+		assertEquals(newUserId, order.getUserId());
+	}
 	
 	@Test
 	void testSetId() {
@@ -81,16 +90,17 @@ class OrderTest {
 	@Test
 	void testToString() {
 		long id = 445;
+		long userId = 13;
 		ArrayList<StoreItem> items = new ArrayList<>();
 		items.add(new StoreItem());
 		items.add(new StoreItem());
 		OrderStatus status = OrderStatus.FINISHED;
 		long timestamp = 3345;
 		
-		Order order = new Order(id, items, status, timestamp);
+		Order order = new Order(id, userId, items, status, timestamp);
 		
 		StringBuilder expected = new StringBuilder();
-		expected.append("ID: " + id + "; Status: " + status);
+		expected.append("ID: " + id + "; UserID: " + userId + "; Status: " + status);
 		expected.append("; Timestamp: " + new Date(timestamp));
 		expected.append("; Item count: " + items.size() + "; Items: \n");
 		for(StoreItem item : items) {

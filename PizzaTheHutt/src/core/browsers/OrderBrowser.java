@@ -13,6 +13,18 @@ public class OrderBrowser {
 	public OrderBrowser(OrderManager manager) {
 		this.manager = manager;
 	}
+
+	public List<Order> getPreviousOrders(long userId){
+		ArrayList<Order> items = new ArrayList<Order>();
+		
+		for(Order item : manager.getAll()) {
+			if(item.getUserId() == userId) {
+				items.add(item);
+			}
+		}
+		
+		return items;
+	}
 	
 	public List<Order> getStatus(OrderStatus status){
 		ArrayList<Order> items = new ArrayList<Order>();

@@ -36,13 +36,15 @@ class OrderBrowserTest {
 		items.add(new StoreItem());
 		items.add(new StoreItem());
 		
-		Order order1 = new Order(manager.reserveId(), items, OrderStatus.NEW, 100);
-		Order order2 = new Order(manager.reserveId(), items, OrderStatus.PROCESSING, 200);
-		Order order3 = new Order(manager.reserveId(), items, OrderStatus.CANCELED, 300);
-		Order order4 = new Order(manager.reserveId(), items, OrderStatus.FINISHED, 400);
-		Order order5 = new Order(manager.reserveId(), items, OrderStatus.NEW, 500);
-		Order order6 = new Order(manager.reserveId(), items, OrderStatus.PROCESSING, 600);
-		Order order7 = new Order(manager.reserveId(), items, OrderStatus.PROCESSING, 700);
+		long userId = 123;
+		
+		Order order1 = new Order(manager.reserveId(), userId, items, OrderStatus.NEW, 100);
+		Order order2 = new Order(manager.reserveId(), userId, items, OrderStatus.PROCESSING, 200);
+		Order order3 = new Order(manager.reserveId(), userId, items, OrderStatus.CANCELED, 300);
+		Order order4 = new Order(manager.reserveId(), userId, items, OrderStatus.FINISHED, 400);
+		Order order5 = new Order(manager.reserveId(), userId, items, OrderStatus.NEW, 500);
+		Order order6 = new Order(manager.reserveId(), userId, items, OrderStatus.PROCESSING, 600);
+		Order order7 = new Order(manager.reserveId(), userId, items, OrderStatus.PROCESSING, 700);
 		
 		assertTrue(browser.getStatus(OrderStatus.NEW).isEmpty());
 		assertTrue(browser.getStatus(OrderStatus.PROCESSING).isEmpty());
@@ -72,14 +74,16 @@ class OrderBrowserTest {
 		ArrayList<StoreItem> items = new ArrayList<StoreItem>();
 		items.add(new StoreItem());
 		items.add(new StoreItem());
+
+		long userId = 123;
 		
-		Order order1 = new Order(manager.reserveId(), items, OrderStatus.NEW, 100);
-		Order order2 = new Order(manager.reserveId(), items, OrderStatus.PROCESSING, 200);
-		Order order3 = new Order(manager.reserveId(), items, OrderStatus.CANCELED, 300);
-		Order order4 = new Order(manager.reserveId(), items, OrderStatus.FINISHED, 400);
-		Order order5 = new Order(manager.reserveId(), items, OrderStatus.NEW, 500);
-		Order order6 = new Order(manager.reserveId(), items, OrderStatus.PROCESSING, 600);
-		Order order7 = new Order(manager.reserveId(), items, OrderStatus.PROCESSING, 700);
+		Order order1 = new Order(manager.reserveId(), userId, items, OrderStatus.NEW, 100);
+		Order order2 = new Order(manager.reserveId(), userId, items, OrderStatus.PROCESSING, 200);
+		Order order3 = new Order(manager.reserveId(), userId, items, OrderStatus.CANCELED, 300);
+		Order order4 = new Order(manager.reserveId(), userId, items, OrderStatus.FINISHED, 400);
+		Order order5 = new Order(manager.reserveId(), userId, items, OrderStatus.NEW, 500);
+		Order order6 = new Order(manager.reserveId(), userId, items, OrderStatus.PROCESSING, 600);
+		Order order7 = new Order(manager.reserveId(), userId, items, OrderStatus.PROCESSING, 700);
 		
 		assertTrue(browser.getAllAfter(0).isEmpty());
 		
@@ -102,14 +106,16 @@ class OrderBrowserTest {
 		ArrayList<StoreItem> items = new ArrayList<StoreItem>();
 		items.add(new StoreItem());
 		items.add(new StoreItem());
+
+		long userId = 123;
 		
-		Order order1 = new Order(manager.reserveId(), items, OrderStatus.NEW, 100);
-		Order order2 = new Order(manager.reserveId(), items, OrderStatus.PROCESSING, 200);
-		Order order3 = new Order(manager.reserveId(), items, OrderStatus.CANCELED, 300);
-		Order order4 = new Order(manager.reserveId(), items, OrderStatus.FINISHED, 400);
-		Order order5 = new Order(manager.reserveId(), items, OrderStatus.NEW, 500);
-		Order order6 = new Order(manager.reserveId(), items, OrderStatus.PROCESSING, 600);
-		Order order7 = new Order(manager.reserveId(), items, OrderStatus.PROCESSING, 700);
+		Order order1 = new Order(manager.reserveId(), userId, items, OrderStatus.NEW, 100);
+		Order order2 = new Order(manager.reserveId(), userId, items, OrderStatus.PROCESSING, 200);
+		Order order3 = new Order(manager.reserveId(), userId, items, OrderStatus.CANCELED, 300);
+		Order order4 = new Order(manager.reserveId(), userId, items, OrderStatus.FINISHED, 400);
+		Order order5 = new Order(manager.reserveId(), userId, items, OrderStatus.NEW, 500);
+		Order order6 = new Order(manager.reserveId(), userId, items, OrderStatus.PROCESSING, 600);
+		Order order7 = new Order(manager.reserveId(), userId, items, OrderStatus.PROCESSING, 700);
 		
 		assertTrue(browser.getAllBefore(0).isEmpty());
 		
@@ -132,14 +138,16 @@ class OrderBrowserTest {
 		ArrayList<StoreItem> items = new ArrayList<StoreItem>();
 		items.add(new StoreItem());
 		items.add(new StoreItem());
+
+		long userId = 123;
 		
-		Order order1 = new Order(manager.reserveId(), items, OrderStatus.NEW, 100);
-		Order order2 = new Order(manager.reserveId(), items, OrderStatus.PROCESSING, 200);
-		Order order3 = new Order(manager.reserveId(), items, OrderStatus.CANCELED, 300);
-		Order order4 = new Order(manager.reserveId(), items, OrderStatus.FINISHED, 400);
-		Order order5 = new Order(manager.reserveId(), items, OrderStatus.NEW, 500);
-		Order order6 = new Order(manager.reserveId(), items, OrderStatus.PROCESSING, 600);
-		Order order7 = new Order(manager.reserveId(), items, OrderStatus.PROCESSING, 700);
+		Order order1 = new Order(manager.reserveId(), userId, items, OrderStatus.NEW, 100);
+		Order order2 = new Order(manager.reserveId(), userId, items, OrderStatus.PROCESSING, 200);
+		Order order3 = new Order(manager.reserveId(), userId, items, OrderStatus.CANCELED, 300);
+		Order order4 = new Order(manager.reserveId(), userId, items, OrderStatus.FINISHED, 400);
+		Order order5 = new Order(manager.reserveId(), userId, items, OrderStatus.NEW, 500);
+		Order order6 = new Order(manager.reserveId(), userId, items, OrderStatus.PROCESSING, 600);
+		Order order7 = new Order(manager.reserveId(), userId, items, OrderStatus.PROCESSING, 700);
 		
 		assertTrue(browser.getAllBetween(0, 1000).isEmpty());
 		
